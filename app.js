@@ -5,6 +5,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+var PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server in port: ${PORT}`);
+})
+
 //security env
 require('dotenv').config()
 
@@ -28,9 +33,4 @@ app.use('/pets', require('./Routers/Pets.js'));
 
 app.use((req, res, next) => {
     res.status(404).render("404", {title: "This page doesn't exist"})
-})
-
-var PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-    console.log(`Server in port: ${PORT}`);
 })
