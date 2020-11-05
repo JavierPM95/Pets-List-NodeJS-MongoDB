@@ -1,0 +1,41 @@
+<%- include('templates/htmlHeader.ejs', {webTitle: 'Pets🐕'}) %> <%-
+include('templates/Navbar.ejs') %>
+
+<div class="container mt-4">
+  <div>
+    <h1>Pets list <span role="img" aria-label="dog" >🐕</span> </h1>
+  </div>
+  <div>
+  <div class="my-4">
+    <a class="btn btn-success btn-block" href="pets/addPet">Add a new pet</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Type</th>
+        <th scope="col">Name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <% if (petsList.length > 0)  { %>
+         <% petsList.forEach(pet => { %>
+            <tr>
+                <th scope="row"><%= pet.id %></th>
+                <td><%= pet.type %></td>
+                <td><%= pet.name %></td>
+                <td><a
+                  class="btn btn-warning btn-sm"
+                  href="/pets/<%= pet.id %>"
+                  >Edit</a></td>
+              </tr>
+         <% }) %>
+        <% } %>
+          </tbody>
+  </table>
+  </div>
+</div>
+
+<%- include('templates/htmlFooter.ejs') %>

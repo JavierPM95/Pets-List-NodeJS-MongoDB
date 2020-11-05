@@ -1,0 +1,31 @@
+<%- include('templates/htmlHeader.ejs', {webTitle: 'Add a new pet'}) %>
+<%- include('templates/Navbar.ejs') %>
+
+<div class="container mt-4">
+    <div>
+        <h1>Add a new pet <span role="img" aria-label="pet">🐶</span></h1>
+    </div>
+    <form action="/pets" method="POST">
+        <label for="type">Type of pet</label>
+        <input
+        type="text"
+        placeholder="Bird"
+        name="type"
+        class="form-control mb-2"
+        >
+        <label for="name">Name</label>
+        <input
+        type="text"
+        placeholder="Wingull"
+        name="name"
+        class="form-control mb-2"
+        >
+
+        <button
+        class="btn btn-success btn-block my-2"
+        type="submit"
+        >Add a new pet</button>
+    </form>
+</div>
+
+<%- include('templates/htmlFooter.ejs') %>

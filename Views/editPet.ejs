@@ -1,0 +1,121 @@
+<%- include('templates/htmlHeader.ejs', {webTitle: 'Edit pet'}) %> <%-
+include('templates/Navbar.ejs') %>
+
+<div class="container mt-4">
+  <div>
+    <h1 class="my-4">
+      Edit your pet <span role="img" aria-label="cat">🐱</span>
+    </h1>
+    <% if (!error) { %>
+    <p class="text-info">You are editing <b><%= pet.name %></b> info</p>
+    <% } %>
+  </div>
+  <div>
+    <% if (error) { %>
+    <p><%= message %></p>
+    <a href="/pets" class="btn btn-secondary btn-md">Return to pets list</a>
+    <% } %> <% if (!error) { %>
+
+    <form id="editForm" data-id="<%= pet.id %>">
+      <div>
+        <label for="type">Type</label>
+        <input
+          type="text"
+          name="type"
+          value="<%= pet.type %>"
+          class="form-control mb-3"
+          id="inputType"
+        />
+      </div>
+      <div>
+        <label for="name">Name</label>
+        <input
+          type="text"
+          name="name"
+          value="<%= pet.name %>"
+          class="form-control mb-3"
+          id="inputName"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-warning btn-block"
+          id="btnEdit"
+        >
+          Edit
+        </button>
+      </div>
+    </form>
+    <div>
+      <button
+        class="btn btn-danger btn-block mt-3"
+        id="btnDelete"
+        data-id="<%= pet.id %>"
+        data-name="<%= pet.name %>"
+      >
+        Delete
+      </button>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('templates/htmlFooter.ejs') %>
+
+<script>
+  //Delete
+  const btnDelete = document.querySelector("#btnDelete");
+  btnDelete.addEventListener("click", async () => {
+    if (
+      confirm(
+        "Do you really want to delete " +
+          btnDelete.dataset.name +
+          " from the pet list"
+      )
+    )
+      try {
+        const data = await fetch(`/pets/${btnDelete.dataset.id}`, {
+          method: "delete",
+        });
+        const res = await data.json();
+        if (res.delete) {
+          window.location.href = "/pets";
+        } else {
+          console.log(res.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+  });
+
+  //Edit
+  const editForm = document.querySelector("#editForm");
+  editForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const type = document.querySelector("#inputType").value;
+    const name = document.querySelector("#inputName").value;
+    const id = editForm.dataset.id;
+
+    try {
+        const data = await fetch(`/pets/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({type, name})
+    })
+
+    const res = await data.json();
+
+    if (res.state) {
+        window.location.href = '/pets'
+    } else {
+        console.log(res)
+    }
+    } catch (error) {
+        console.log(error)
+    }
+
+  });
+</script>
