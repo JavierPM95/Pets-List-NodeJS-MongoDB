@@ -67,7 +67,7 @@ router.delete('/:id', async (req, res) => {
         if (petDB) {
             res.json({
                 delete: true,
-                message: 'The pet have been deleted'
+                message: 'Your pet have been deleted'
             })
         } else {
             res.json({
