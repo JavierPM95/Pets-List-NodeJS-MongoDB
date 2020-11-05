@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     res.status(404).render("404", {title: "This page doesn't exist"})
 })
 
-const PORT = process.env.PORT || 4000;
+var PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server in port: ${PORT}`);
 })
