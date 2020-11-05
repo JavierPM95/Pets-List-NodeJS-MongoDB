@@ -62,7 +62,7 @@ router.delete('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const petDB = await PetsModel.findByIdAndDelete({ _id: id },{usefindByIdAndModify: false})
+        const petDB = await PetsModel.findByIdAndDelete({ _id: id },{useFindAndModify: false})
         
         if (petDB) {
             res.json({
@@ -88,7 +88,7 @@ router.put('/:id', async (req, res) => {
 
     try {
         
-        const PetDB = await PetsModel.findByIdAndUpdate(id, body, {usefindByIdAndModify: false})
+        const PetDB = await PetsModel.findByIdAndUpdate(id, body, {useFindAndModify: false})
 
         res.json({
             state: true,
