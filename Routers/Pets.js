@@ -4,6 +4,8 @@ const router = express.Router();
 //Mongoose Models
 const PetsModel = require('../models/petsSchema.js')
 
+
+//Get Pet List form DB
 router.get('/', async (req, res) => {
     try {
         const petsListDB = await PetsModel.find();
@@ -16,11 +18,13 @@ router.get('/', async (req, res) => {
     }
 })
 
-
+//Router Pets
 router.get('/addPet', (req, res) => {
     res.render('addPet')
 })
 
+
+// Create Pet
 router.post('/', async (req, res) => {
     const body = req.body;
     try {
@@ -36,7 +40,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-
+// Get Pet to Edit. Just FindOne. NO Pet Update.
 router.get('/:id', async (req, res) => {
     
     const id = req.params.id
@@ -56,7 +60,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-
+//Delete Pet
 router.delete('/:id', async (req, res) => {
 
     const id = req.params.id
@@ -81,7 +85,7 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-
+//Update Pet Action
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const body = req.body;
