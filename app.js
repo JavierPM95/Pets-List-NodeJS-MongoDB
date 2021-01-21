@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 
-
+//json reader
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//Port config
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server in port: ${PORT}`);
